@@ -5,18 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.sql.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "user")
+@Table(name = "userdata")
 public class UserData {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "user_id")
     private Integer id;
 
     @Column(name="first_name")
@@ -29,6 +27,6 @@ public class UserData {
     private String dateOfBirth;
 
     @Column(name="last_update_date")
-    private Date lastUpdateDate;
+    private String lastUpdateDate;
 }
 

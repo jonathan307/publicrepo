@@ -1,6 +1,8 @@
 package com.files.service;
 
+import com.files.domain.postgres.entity.Customer;
 import com.files.domain.postgres.entity.UserData;
+import com.files.domain.postgres.repository.CustomerRepo;
 import com.files.domain.postgres.repository.UserRepository;
 import com.files.dto.MyDbResponse;
 import com.files.dto.MyServiceResponse;
@@ -13,9 +15,11 @@ import java.util.List;
 public class MyService {
 
     private final UserRepository userRepo;
+    private final CustomerRepo custRepo;
 
-    public MyService(final UserRepository userRepo) {
+    public MyService(final UserRepository userRepo, final CustomerRepo custRepo) {
         this.userRepo = userRepo;
+        this.custRepo = custRepo;
     }
 
     public MyServiceResponse listResources(){
@@ -37,7 +41,7 @@ public class MyService {
         return myshop;
     }
 
-    public List<MyDbResponse> getDbData() {
+    public List<MyDbResponse> getUserDataDbData() {
 
         List<MyDbResponse> mydbresList = new ArrayList<>();
         MyDbResponse mydbres;
@@ -45,9 +49,30 @@ public class MyService {
         udata = userRepo.getDataForFile();
         for(UserData ud: udata){
             mydbres = new MyDbResponse();
+            mydbres.setId(ud.getId());
             mydbres.setFirstName(ud.getFirstName());
             mydbres.setLastName(ud.getLastName());
             mydbres.setDateOfBirth(ud.getDateOfBirth());
+            mydbres.setLastUpdateDate(ud.getLastUpdateDate());
+            mydbresList.add(mydbres);
+        }
+
+        return mydbresList;
+    }
+
+    public List<Customer> getCustDbData() {
+
+        List<Customer> mydbresList = new ArrayList<>();
+        Customer mydbres;
+        List<Customer> udata;
+        udata = custRepo.getDataForFile();
+        for(Customer ud: udata){
+            mydbres = new Customer();
+            mydbres.setCreateDt(ud.getCreateDt());
+            mydbres.setCustomerId(ud.getCustomerId());
+            mydbres.setEmail(ud.getEmail());
+            mydbres.setName(ud.getName());
+            mydbres.setMobileNumber(ud.getMobileNumber());
             mydbresList.add(mydbres);
         }
 

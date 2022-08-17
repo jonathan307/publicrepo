@@ -1,5 +1,6 @@
 package com.files.controller;
 
+import com.files.domain.postgres.entity.Customer;
 import com.files.dto.MyDbResponse;
 import com.files.dto.MyServiceResponse;
 import com.files.dto.MyShoppingResponse;
@@ -34,9 +35,15 @@ public class MyController {
         return ResponseEntity.ok(myshop);
     }
 
-    @GetMapping(value = "/my-dbdata", produces = "application/json")
-    ResponseEntity<List<MyDbResponse>> getDbData() {
-        List<MyDbResponse> mydbres = myservice.getDbData();
+    @GetMapping(value = "/my-dbuserdata", produces = "application/json")
+    ResponseEntity<List<MyDbResponse>> getUserDataDbData() {
+        List<MyDbResponse> mydbres = myservice.getUserDataDbData();
+        return new ResponseEntity<>(mydbres, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/my-dbcust", produces = "application/json")
+    ResponseEntity<List<Customer>> getCustDbData() {
+        List<Customer> mydbres = myservice.getCustDbData();
         return new ResponseEntity<>(mydbres, HttpStatus.OK);
     }
 
